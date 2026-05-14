@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commande confirmée — La Prairie des Volailles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --burgundy: #7A1E2E; --cream: #F8F0DC; --gold: #C4963A; --green: #2C4A2E; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      max-width: 520px;
+      width: 100%;
+      padding: 3.5rem 3rem;
+      text-align: center;
+      border-top: 4px solid var(--green);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+    .icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .divider { width: 40px; height: 2px; background: var(--gold); margin: 1.5rem auto; }
+    .info-box {
+      background: #f5f9f5;
+      border: 1px solid #d0e8d0;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      font-size: 1rem;
+      color: #2C4A2E;
+      line-height: 1.7;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--burgundy);
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.9rem 2.5rem;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #541520; }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--burgundy);
+      margin-top: 2rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✅</div>
+    <h1>Commande confirmée !</h1>
+    <div class="divider"></div>
+    <p>Merci pour votre commande. Votre paiement a bien été reçu.</p>
+    <div class="info-box">
+      🥩 Nous préparons votre commande avec soin.<br>
+      📞 Nous vous contacterons si nécessaire.<br>
+      📧 Un reçu vous a été envoyé par email.
+    </div>
+    <p>À bientôt à La Prairie des Volailles !</p>
+    <a href="/" class="btn">Retour à l'accueil</a>
+    <div class="logo">La Prairie des Volailles</div>
+  </div>
+</body>
+</html>

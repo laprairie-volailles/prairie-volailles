@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Prairie des Volailles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --burgundy: #7A1E2E;
+      --burgundy-dark: #541520;
+      --burgundy-light: #9B2D40;
+      --cream: #F8F0DC;
+      --cream-dark: #EDE0C4;
+      --gold: #C4963A;
+      --gold-light: #D9AE5A;
+      --green: #2C4A2E;
+      --text: #2A1A0E;
+      --text-light: #6B5040;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(248, 240, 220, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--cream-dark);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(122,30,46,0.1); }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { font-style: italic; font-weight: 400; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--burgundy); }
+    .nav-cta {
+      background: var(--burgundy);
+      color: var(--cream) !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: var(--burgundy-dark); color: var(--cream) !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--burgundy-dark);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 80%, rgba(196,150,58,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(122,30,46,0.4) 0%, transparent 50%),
+        linear-gradient(160deg, #3A0E17 0%, #7A1E2E 40%, #541520 100%);
+    }
+    .hero-texture {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-ornament {
+      position: absolute;
+      width: 600px; height: 600px;
+      border: 1px solid rgba(196,150,58,0.15);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .hero-ornament-2 {
+      position: absolute;
+      width: 800px; height: 800px;
+      border: 1px solid rgba(196,150,58,0.08);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: var(--cream);
+      padding: 2rem;
+      animation: fadeInUp 1.2s ease both;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(196,150,58,0.4);
+      padding: 0.4rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title em {
+      display: block;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: rgba(248,240,220,0.7);
+      margin-bottom: 3rem;
+      font-style: italic;
+    }
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border: 1px solid rgba(248,240,220,0.4);
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
+    .hero-info {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 3rem;
+      color: rgba(248,240,220,0.6);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .hero-info span { display: flex; align-items: center; gap: 0.5rem; }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--burgundy-dark);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--burgundy-light); }
+    .section-text {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-light);
+      max-width: 580px;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    #comment {
+      background: var(--burgundy-dark);
+      color: var(--cream);
+    }
+    #comment .section-title { color: var(--cream); }
+    #comment .section-title em { color: var(--gold-light); }
+    #comment .section-text { color: rgba(248,240,220,0.7); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+    .step {
+      text-align: center;
+      animation: fadeInUp 0.8s ease both;
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(196,150,58,0.25);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+    .step-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(248,240,220,0.6);
+    }
+    .step-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 3rem;
+      color: rgba(196,150,58,0.3);
+      font-size: 1.5rem;
+    }
+
+    /* ─── PRODUCTS ─── */
+    #produits { background: var(--cream-dark); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .product-card {
+      background: var(--cream);
+      border: 1px solid rgba(196,150,58,0.2);
+      padding: 1.8rem;
+      position: relative;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(122,30,46,0.1);
+    }
+    .product-tag {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--burgundy);
+      color: var(--cream);
+      padding: 0.25rem 0.6rem;
+    }
+    .product-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--burgundy-dark);
+      margin-bottom: 0.4rem;
+    }
+    .product-desc {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+    }
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--burgundy);
+    }
+    .product-unit {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-light);
+    }
+    .btn-add {
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      padding: 0.5rem 1.1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-add:hover { background: var(--burgundy-light); }
+    .btn-add.added { background: var(--green); }
+
+    /* ─── CART MINI ─── */
+    .cart-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 99;
+      background: var(--burgundy-dark);
+      color: var(--cream);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    }
+    .cart-bar.visible { transform: translateY(0); }
+    .cart-bar-info { font-size: 1rem; }
+    .cart-bar-info strong { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+    .cart-bar-actions { display: flex; gap: 1rem; align-items: center; }
+
+    /* ─── ORDER FORM ─── */
+    #commander {
+      background: var(--cream);
+    }
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 768px) {
+      .form-layout { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-info { display: none; }
+    }
+
+    /* Cart summary */
+    .cart-summary {
+      background: var(--cream-dark);
+      border: 1px solid rgba(196,150,58,0.2);
+      padding: 2rem;
+    }
+    .cart-summary h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--burgundy-dark);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(196,150,58,0.3);
+    }
+    .cart-items { min-height: 80px; }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(196,150,58,0.1);
+    }
+    .cart-item-name { font-weight: 500; font-size: 1rem; }
+    .cart-item-right { display: flex; align-items: center; gap: 0.75rem; }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .qty-btn {
+      width: 26px; height: 26px;
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .qty-btn:hover { background: var(--burgundy-light); }
+    .qty-val { min-width: 24px; text-align: center; font-weight: 600; }
+    .cart-item-price { color: var(--burgundy); font-weight: 600; min-width: 60px; text-align: right; }
+    .cart-empty {
+      text-align: center;
+      color: var(--text-light);
+      font-style: italic;
+      padding: 2rem 0;
+    }
+    .cart-total {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 2px solid var(--burgundy);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .cart-total-label { font-weight: 500; font-size: 1rem; }
+    .cart-total-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--burgundy);
+    }
+
+    /* Form */
+    .order-form { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+    input, select, textarea {
+      background: var(--cream-dark);
+      border: 1px solid rgba(196,150,58,0.25);
+      padding: 0.8rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      width: 100%;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* Delivery toggle */
+    .delivery-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(196,150,58,0.25);
+      overflow: hidden;
+    }
+    .delivery-option {
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      background: var(--cream-dark);
+      transition: all 0.2s;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--text-light);
+    }
+    .delivery-option.active {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+    .delivery-option .option-icon { font-size: 1.5rem; display: block; margin-bottom: 0.3rem; }
+    .delivery-option .option-label { font-weight: 600; display: block; }
+    .delivery-option .option-sub { font-size: 0.85rem; display: block; opacity: 0.75; }
+
+    .delivery-fields { display: none; }
+    .delivery-fields.visible { display: block; }
+
+    .form-info-box {
+      background: rgba(122,30,46,0.06);
+      border-left: 3px solid var(--burgundy);
+      padding: 1rem 1.2rem;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .form-info-box strong { color: var(--burgundy); }
+
+    .submit-btn {
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      padding: 1.2rem 2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      letter-spacing: 0.05em;
+    }
+    .submit-btn:hover { background: var(--burgundy-dark); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .send-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-whatsapp:hover { background: #1ebe5a; }
+    .btn-email {
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      padding: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-email:hover { background: var(--burgundy-dark); }
+
+    .send-note {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--green);
+      color: var(--cream);
+    }
+    #about .section-title { color: var(--cream); }
+    #about .section-title em { color: var(--gold-light); }
+    #about .section-text { color: rgba(248,240,220,0.75); max-width: none; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .fact {
+      border-left: 2px solid var(--gold);
+      padding-left: 1.2rem;
+    }
+    .fact-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .fact-label { font-size: 0.9rem; color: rgba(248,240,220,0.6); margin-top: 0.3rem; }
+    .about-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.4;
+    }
+    .about-quote-mark {
+      font-size: 5rem;
+      color: rgba(196,150,58,0.3);
+      font-family: Georgia, serif;
+      line-height: 0.5;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--burgundy-dark);
+      color: var(--cream);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo em { font-style: italic; font-weight: 400; color: var(--gold-light); }
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: rgba(248,240,220,0.5);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .footer-divider { width: 40px; height: 1px; background: var(--gold); margin: 1.5rem auto; }
+    .footer-info {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      color: rgba(248,240,220,0.65);
+      margin-bottom: 1.5rem;
+    }
+    .footer-info span { display: flex; align-items: center; gap: 0.4rem; }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(248,240,220,0.3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── MODAL SUCCESS ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(42,26,14,0.6);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      padding: 1rem;
+    }
+    .modal-overlay.visible { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--cream);
+      padding: 3rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+    .modal-overlay.visible .modal { transform: scale(1); }
+    .modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--burgundy-dark);
+      margin-bottom: 0.75rem;
+    }
+    .modal-text { color: var(--text-light); line-height: 1.7; margin-bottom: 2rem; }
+    .modal-close {
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      padding: 0.8rem 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(25px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--burgundy); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">La Prairie <span>des Volailles</span></a>
+  <ul class="nav-links">
+    <li><a href="#comment">Commander</a></li>
+    <li><a href="#produits">Nos produits</a></li>
+    <li><a href="#about">La boutique</a></li>
+    <li><a href="#commander" class="nav-cta">Commander</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-ornament"></div>
+  <div class="hero-ornament-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Boucherie artisanale ✦</div>
+    <h1 class="hero-title">
+      La Prairie<br>
+      <em>des Volailles</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Viandes de qualité, commandées en ligne et livrées chez vous</p>
+    <div class="hero-actions">
+      <a href="#commander" class="btn-primary">Passer une commande</a>
+      <a href="#produits" class="btn-outline">Voir les produits</a>
+    </div>
+  </div>
+  <div class="hero-info">
+    <span>📍 Marché couvert</span>
+    <span>🕐 Ouvert jusqu'à 14h30</span>
+    <span>🚚 Livraison à domicile</span>
+  </div>
+</section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section id="comment">
+  <div class="section-inner">
+    <p class="section-label reveal">Simplicité & rapidité</p>
+    <h2 class="section-title reveal">Comment <em>commander</em> ?</h2>
+    <p class="section-text reveal">En quelques étapes simples, recevez votre commande chez vous ou venez la récupérer au marché.</p>
+
+    <div class="steps">
+      <div class="step reveal" style="animation-delay:0.1s">
+        <div class="step-num">01</div>
+        <div class="step-icon">🛒</div>
+        <h3 class="step-title">Choisissez vos produits</h3>
+        <p class="step-desc">Parcourez notre sélection et ajoutez vos viandes préférées à votre panier (40€ minimum pour la livraison).</p>
+      </div>
+      <div class="step reveal" style="animation-delay:0.2s">
+        <div class="step-num">02</div>
+        <div class="step-icon">📋</div>
+        <h3 class="step-title">Remplissez le formulaire</h3>
+        <p class="step-desc">Indiquez vos coordonnées et choisissez entre retrait au marché ou livraison à domicile.</p>
+      </div>
+      <div class="step reveal" style="animation-delay:0.3s">
+        <div class="step-num">03</div>
+        <div class="step-icon">💳</div>
+        <h3 class="step-title">Payez en ligne</h3>
+        <p class="step-desc">Réglez votre commande en toute sécurité — votre commande est confirmée instantanément.</p>
+      </div>
+      <div class="step reveal" style="animation-delay:0.4s">
+        <div class="step-num">04</div>
+        <div class="step-icon">✅</div>
+        <h3 class="step-title">Récupérez ou recevez</h3>
+        <p class="step-desc">Venez chercher votre commande avant 14h30 ou recevez-la à domicile à la date convenue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section id="produits">
+  <div class="section-inner">
+    <p class="section-label reveal">Fraîcheur garantie</p>
+    <h2 class="section-title reveal">Nos <em>produits</em></h2>
+    <p class="section-text reveal">Une sélection soigneuse de volailles et viandes de qualité, préparées par nos bouchers.</p>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Produits générés par JS -->
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE -->
+<section id="commander">
+  <div class="section-inner">
+    <p class="section-label reveal">Passez votre commande</p>
+    <h2 class="section-title reveal">Réserver <em>en ligne</em></h2>
+
+    <div class="form-layout">
+      <!-- Cart summary -->
+      <div class="cart-summary reveal">
+        <h3>🛒 Votre panier</h3>
+        <div class="cart-items" id="cartItems">
+          <div class="cart-empty">Ajoutez des produits depuis notre catalogue ci-dessus.</div>
+        </div>
+        <div class="cart-total">
+          <span class="cart-total-label">Total estimé</span>
+          <span class="cart-total-amount" id="cartTotal">0,00 €</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="order-form reveal">
+        <div class="form-group">
+          <label>Mode de réception</label>
+          <div class="delivery-toggle">
+            <button class="delivery-option active" id="btnRetrait" onclick="setDelivery('retrait')">
+              <span class="option-icon">🏪</span>
+              <span class="option-label">Retrait</span>
+              <span class="option-sub">Au marché avant 14h30</span>
+            </button>
+            <button class="delivery-option" id="btnLivraison" onclick="setDelivery('livraison')">
+              <span class="option-icon">🚚</span>
+              <span class="option-label">Livraison</span>
+              <span class="option-sub">À domicile</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" placeholder="Jean">
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" placeholder="Dupont">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telephone">Téléphone *</label>
+          <input type="tel" id="telephone" placeholder="06 12 34 56 78">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="jean.dupont@email.com">
+        </div>
+
+        <div class="delivery-fields" id="livraisonFields">
+          <div class="form-group">
+            <label for="adresse">Adresse de livraison *</label>
+            <input type="text" id="adresse" placeholder="12 rue des Fleurs, 75001 Paris">
+          </div>
+          <div class="form-group">
+            <label for="creneau">Créneau de livraison souhaité *</label>
+            <select id="creneau">
+              <option value="">-- Choisissez un créneau --</option>
+              <option>🌅 Matin (avant 12h)</option>
+              <option>☀️ Début d'après-midi (12h – 15h)</option>
+              <option>🌇 Fin d'après-midi (15h – 19h)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Instructions particulières</label>
+          <textarea id="notes" placeholder="Heure précise souhaitée, cuisson, découpe spéciale, allergies..."></textarea>
+        </div>
+
+        <div class="form-info-box" id="infoBox">
+          <strong>Retrait au marché :</strong> votre commande sera prête le lendemain matin. Passez la chercher avant 14h30.
+        </div>
+
+        <div>
+          <button id="payBtn" class="submit-btn" onclick="payOrder()">
+            💳 &nbsp; Payer ma commande en toute sécurité
+          </button>
+          <p class="send-note" style="margin-top:0.75rem;">Paiement sécurisé par Stripe · Carte bancaire · Vous recevrez une confirmation automatique.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <p class="section-label reveal">Notre histoire</p>
+        <h2 class="section-title reveal">Une <em>passion</em><br>pour la qualité</h2>
+        <p class="section-text reveal">
+          Installée au cœur du marché couvert, La Prairie des Volailles sélectionne chaque semaine des volailles et viandes d'exception, élevées dans le respect des traditions. Notre boucher vous conseille et prépare votre commande avec soin.
+        </p>
+        <div class="about-facts reveal">
+          <div class="fact">
+            <div class="fact-val">7j/7</div>
+            <div class="fact-label">Ouvert tous les jours</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val">14h30</div>
+            <div class="fact-label">Heure de fermeture</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val">100%</div>
+            <div class="fact-label">Fraîcheur garantie</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val">🚚</div>
+            <div class="fact-label">Livraison à domicile</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="about-quote-mark">"</span>
+        <p class="about-quote">Parce que l'heure de fermeture ne devrait pas être la fin de votre journée gourmande.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">La Prairie <em>des Volailles</em></div>
+  <div class="footer-tagline">Boucherie artisanale · Marché couvert</div>
+  <div class="footer-divider"></div>
+  <div class="footer-info">
+    <span>📍 Marché couvert — à compléter</span>
+    <span>📞 À compléter</span>
+    <span>✉️ À compléter</span>
+    <span>🕐 Lun–Sam · 7h – 14h30</span>
+  </div>
+  <div class="footer-copy">© 2025 La Prairie des Volailles · Tous droits réservés</div>
+</footer>
+
+<!-- CART BAR -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-bar-info">
+    <strong id="cartCount">0</strong> article(s) — Total : <strong id="cartBarTotal">0,00 €</strong>
+  </div>
+  <div class="cart-bar-actions">
+    <a href="#commander" class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.9rem;">Finaliser →</a>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <h3 class="modal-title">Commande prête à envoyer !</h3>
+    <p class="modal-text" id="modalText">Votre commande a été préparée. Cliquez sur WhatsApp ou Email pour la transmettre.</p>
+    <button class="modal-close" onclick="closeModal()">Fermer</button>
+  </div>
+</div>
+
+<script>
+  // ─── PRODUITS ───
+  const products = [
+    { id: 1, name: "Poulet Fermier Entier", desc: "Élevé en plein air, chair tendre et goûteuse", price: 9.90, unit: "/ kg", emoji: "🐓", tag: "Volaille" },
+    { id: 2, name: "Cuisses de Poulet", desc: "Parfaites pour le four ou la plancha", price: 6.50, unit: "/ kg", emoji: "🍗", tag: "Volaille" },
+    { id: 3, name: "Escalopes de Dinde", desc: "Fines et tendres, idéales pour les enfants", price: 11.90, unit: "/ kg", emoji: "🦃", tag: "Volaille" },
+    { id: 4, name: "Magret de Canard", desc: "Sélection premium du Sud-Ouest", price: 19.90, unit: "/ kg", emoji: "🦆", tag: "Premium" },
+    { id: 5, name: "Côtelettes d'Agneau", desc: "Agneau de pays, saveur incomparable", price: 22.00, unit: "/ kg", emoji: "🐑", tag: "Agneau" },
+    { id: 6, name: "Bœuf Haché Artisan", desc: "Préparé à la demande, 15% de matière grasse", price: 13.50, unit: "/ kg", emoji: "🥩", tag: "Bœuf" },
+    { id: 7, name: "Rôti de Porc", desc: "Idéal pour le dimanche en famille", price: 10.90, unit: "/ kg", emoji: "🥓", tag: "Porc" },
+    { id: 8, name: "Merguez Maison", desc: "Recette artisanale, épices sélectionnées", price: 12.00, unit: "/ kg", emoji: "🌭", tag: "Maison" },
+  ];
+
+  const cart = {};
+
+  function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = products.map(p => `
+      <div class="product-card reveal">
+        <div class="product-tag">${p.tag}</div>
+        <div class="product-emoji">${p.emoji}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="product-price">${p.price.toFixed(2).replace('.', ',')} € <span class="product-unit">${p.unit}</span></div>
+          <button class="btn-add" id="btn-${p.id}" onclick="addToCart(${p.id})">+ Ajouter</button>
+        </div>
+      </div>
+    `).join('');
+    observeReveal();
+  }
+
+  function addToCart(id) {
+    const p = products.find(x => x.id === id);
+    if (!cart[id]) cart[id] = { ...p, qty: 0 };
+    cart[id].qty += 0.5;
+    const btn = document.getElementById('btn-' + id);
+    btn.textContent = '✓ Ajouté';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = '+ Ajouter'; btn.classList.remove('added'); }, 1200);
+    updateCartUI();
+  }
+
+  function changeQty(id, delta) {
+    if (!cart[id]) return;
+    cart[id].qty = Math.max(0, cart[id].qty + delta);
+    if (cart[id].qty === 0) delete cart[id];
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const items = Object.values(cart);
+    const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const count = items.reduce((s, i) => s + i.qty, 0);
+
+    // Cart summary
+    const el = document.getElementById('cartItems');
+    if (items.length === 0) {
+      el.innerHTML = '<div class="cart-empty">Ajoutez des produits depuis notre catalogue ci-dessus.</div>';
+    } else {
+      el.innerHTML = items.map(i => `
+        <div class="cart-item">
+          <span class="cart-item-name">${i.emoji} ${i.name}</span>
+          <div class="cart-item-right">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty(${i.id}, -0.5)">−</button>
+              <span class="qty-val">${i.qty} kg</span>
+              <button class="qty-btn" onclick="changeQty(${i.id}, 0.5)">+</button>
+            </div>
+            <span class="cart-item-price">${(i.price * i.qty).toFixed(2).replace('.', ',')} €</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    document.getElementById('cartTotal').textContent = total.toFixed(2).replace('.', ',') + ' €';
+
+    // Avertissement minimum livraison
+    const existing = document.getElementById('minWarning');
+    if (existing) existing.remove();
+    if (deliveryMode === 'livraison' && total > 0 && total < 40) {
+      const warn = document.createElement('div');
+      warn.id = 'minWarning';
+      warn.style.cssText = 'margin-top:0.75rem;padding:0.7rem 1rem;background:rgba(122,30,46,0.08);border-left:3px solid var(--burgundy);font-size:0.9rem;color:var(--burgundy);';
+      warn.innerHTML = `⚠️ Minimum de commande pour la livraison : <strong>40,00 €</strong><br>Il manque <strong>${(40 - total).toFixed(2).replace('.', ',')} €</strong> pour valider.`;
+      document.querySelector('.cart-total').after(warn);
+    }
+
+    // Cart bar
+    const bar = document.getElementById('cartBar');
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartBarTotal').textContent = total.toFixed(2).replace('.', ',') + ' €';
+    bar.classList.toggle('visible', count > 0);
+  }
+
+  // ─── DELIVERY ───
+  let deliveryMode = 'retrait';
+  function setDelivery(mode) {
+    deliveryMode = mode;
+    document.getElementById('btnRetrait').classList.toggle('active', mode === 'retrait');
+    document.getElementById('btnLivraison').classList.toggle('active', mode === 'livraison');
+    document.getElementById('livraisonFields').classList.toggle('visible', mode === 'livraison');
+    document.getElementById('infoBox').innerHTML = mode === 'retrait'
+      ? '<strong>Retrait au marché :</strong> votre commande sera prête le lendemain matin. Passez la chercher avant 14h30.'
+      : '<strong>Livraison à domicile :</strong> choisissez votre créneau préféré. Vous pouvez préciser une heure exacte dans le champ "instructions" si besoin.';
+    updateCartUI();
+  }
+
+  // ─── PAIEMENT STRIPE ───
+  async function payOrder() {
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    const tel = document.getElementById('telephone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const notes = document.getElementById('notes').value.trim();
+    const adresse = document.getElementById('adresse') ? document.getElementById('adresse').value.trim() : '';
+    const creneau = document.getElementById('creneau') ? document.getElementById('creneau').value : '';
+    const items = Object.values(cart);
+    const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+
+    if (!prenom || !tel) { alert('Veuillez renseigner votre prénom et votre téléphone.'); return; }
+    if (items.length === 0) { alert('Votre panier est vide.'); return; }
+    if (deliveryMode === 'livraison' && total < 40) {
+      alert(`Minimum de commande pour la livraison : 40,00 €.\nIl manque ${(40 - total).toFixed(2).replace('.', ',')} €.`);
+      return;
+    }
+    if (deliveryMode === 'livraison' && (!adresse || !creneau)) {
+      alert('Veuillez renseigner votre adresse et votre créneau de livraison.');
+      return;
+    }
+
+    const btn = document.getElementById('payBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳  Redirection vers le paiement...';
+
+    try {
+      const response = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map(i => ({ name: i.name, qty: i.qty, price: i.price, emoji: i.emoji })),
+          customer: { prenom, nom, telephone: tel, email },
+          delivery: { mode: deliveryMode, adresse, creneau, notes },
+        }),
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || 'Erreur inconnue');
+      }
+    } catch (err) {
+      alert('Une erreur est survenue. Veuillez réessayer.\n' + err.message);
+      btn.disabled = false;
+      btn.textContent = '💳  Payer ma commande en toute sécurité';
+    }
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('visible');
+  }
+
+  // ─── SCROLL ───
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  function observeReveal() {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  renderProducts();
+  observeReveal();
+</script>
+</body>
+</html>
